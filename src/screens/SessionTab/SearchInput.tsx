@@ -1,13 +1,19 @@
 import { Image, StyleSheet, TextInput, View } from 'react-native';
 import {
-  light_grey, myBackground, search_bar_color, white,
+  search_bar_color, white,
 } from '../../utils/colorHexCodes';
-import { calendar_icon, filter_icon, search_icon } from '../../utils/ImageExporter';
-import React from 'react';
+import { filter_icon, search_icon } from '../../utils/ImageExporter';
+import React, { FC, useRef } from 'react';
 
-const SearchInput = () => {
+type props = {
+  searchStr?: any
+}
 
-  console.log('Search Input Render')
+const SearchInput: FC<props> = ({ searchStr = () => { } }) => {
+
+  console.log('Search Input Render');
+  const strTobeSearcher = useRef('');
+
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
@@ -15,8 +21,9 @@ const SearchInput = () => {
           style={styles.input}
           placeholder="Search"
           placeholderTextColor={'#FFFFFF66'}
-          onChangeText={() => { }}
+          onChangeText={(t) => { strTobeSearcher.current = t; }}
           underlineColorAndroid="transparent"
+          onSubmitEditing={() => searchStr(strTobeSearcher.current)}
         />
         <Image
           style={styles.searchIcon}
@@ -41,7 +48,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   searchContainer: {
     height: '90%',
@@ -62,10 +69,10 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 10,
     color: white,
-    fontSize: 15
+    fontSize: 15,
   },
   filterIcon: {
     height: '90%',
   },
-  filterContainer: { width: '15%', height: '80%', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', }
+  filterContainer: { width: '15%', height: '80%', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' },
 });

@@ -3,6 +3,7 @@ export type ListSessionType = {
     date: string;
     type: string;
     category: string;
+    isBooked: boolean;
 };
 
 export type NumToDayPair = {

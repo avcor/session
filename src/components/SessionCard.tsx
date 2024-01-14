@@ -1,24 +1,27 @@
-import moment from "moment";
-import { View, Image, Text, StyleSheet, Dimensions } from "react-native";
-import { montserrat_bold, montserrat_regular } from "../utils/FontConstant";
-import { beach_hut, clock_icon } from "../utils/ImageExporter";
-import { white, card_background } from "../utils/colorHexCodes";
-import PrimaryButton from "./PrimaryButton";
-import { FC } from "react";
-import { ListSessionType } from "../types/myTypes";
+import moment from 'moment';
+import { View, Image, Text, StyleSheet, Dimensions } from 'react-native';
+import { montserrat_bold, montserrat_regular } from '../utils/FontConstant';
+import { beach_hut, clock_icon } from '../utils/ImageExporter';
+import { white, card_background } from '../utils/colorHexCodes';
+import PrimaryButton from './PrimaryButton';
+import { FC } from 'react';
+import { ListSessionType } from '../types/myTypes';
+import React from 'react';
 
 type props = {
-    item: ListSessionType
+    item: ListSessionType,
+    funcBook: (id: string) => void
+    booked?: boolean
 }
 
-const SessionCard: FC<props> = ({ item }) => {
+const SessionCard: FC<props> = ({ item, funcBook, booked = false }) => {
 
     let d = new Date(item.date);
-
+    console.log('session card render');
     return (
         <View style={styles.parentContainer}>
-            <View style={{ flex: 1 }}>
-                <View style={{ padding: 10 }}>
+            <View style={styles.flex1}>
+                <View style={styles.padding10}>
                     <Image
                         style={styles.workoutImage}
                         source={beach_hut}
@@ -30,32 +33,30 @@ const SessionCard: FC<props> = ({ item }) => {
             <View style={styles.detailContainer}>
                 <View style={styles.innerDetailContainer}>
                     <View style={styles.detailSession}>
-                        <Text style={{ color: white, fontFamily: montserrat_bold, fontSize: 15 }}>{item.name}</Text>
-                        <Text style={{ color: white, fontFamily: montserrat_regular, marginTop: 3 }}>{item.type[0].toUpperCase() + item.type.slice(1)}</Text>
+                        <Text style={styles.textHeadSm}>{item.name}</Text>
+                        <Text style={styles.textHeadLg}>{item.type[0].toUpperCase() + item.type.slice(1)}</Text>
 
                         <View style={styles.time}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, }}>
-
+                            <View style={styles.imageContainer}>
                                 <Image
                                     style={styles.clockImg}
                                     resizeMode="cover"
-                                    source={clock_icon}></Image>
+                                    source={clock_icon} />
                                 <Text style={styles.timeText}>{moment(d).format('hh:mm A')}</Text>
                             </View>
                         </View>
                     </View>
                     <View style={styles.bookSession}>
                         <Text style={{ color: white, fontFamily: montserrat_regular }}>{item.category[0].toUpperCase() + item.category.slice(1)}</Text>
-                        <View style={{ height: '30%', width: '70%' }}>
-
-                            <PrimaryButton />
+                        <View style={styles.buttonContainer}>
+                            <PrimaryButton onClick={() => funcBook(item.date)} text={booked ? 'booked' : 'book'} />
                         </View>
                     </View>
                 </View>
             </View>
         </View>
-    )
-}
+    );
+};
 
 
 const styles = StyleSheet.create({
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: card_background,
     },
-    workoutImage: { height: '100%', width: '100%', },
+    workoutImage: { height: '100%', width: '100%' },
     detailContainer: { flex: 2, flexDirection: 'row' },
     innerDetailContainer: { flex: 1, flexDirection: 'row', margin: 10 },
     detailSession: {
@@ -81,8 +82,16 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         flexDirection: 'row',
     },
-    clockImg: { width: '18%', aspectRatio: 1, },
-    timeText: { marginLeft: 5, color: white, fontFamily: montserrat_regular, marginTop: 0, },
+    clockImg: { width: '18%', aspectRatio: 1 },
+    timeText: { marginLeft: 5, color: white, fontFamily: montserrat_regular, marginTop: 0 },
+    buttonContainer: { height: '30%', width: '70%' },
+    imageContainer: { flexDirection: 'row', alignItems: 'center', flex: 1 },
+    textHeadSm: { color: white, fontFamily: montserrat_bold, fontSize: 15 },
+    textHeadLg: { color: white, fontFamily: montserrat_regular, marginTop: 3 },
+    flex1: {
+        flex: 1,
+    },
+    padding10: { padding: 10 },
 });
 
-export default SessionCard;
+export default React.memo(SessionCard);

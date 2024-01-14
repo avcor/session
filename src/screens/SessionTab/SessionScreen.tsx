@@ -1,9 +1,7 @@
-import { Dimensions, FlatList, Image, StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
 import SearchInput from './SearchInput';
-import { black, myBackground, purple_light, text_grey, white } from '../../utils/colorHexCodes';
-import { roboto_bold } from '../../utils/FontConstant';
-import { beach_hut, calendar_icon, clock_icon, profile_photo } from '../../utils/ImageExporter';
+import { myBackground } from '../../utils/colorHexCodes';
 import NameHeader from '../../components/NameHeader';
 import CalendarStrip from '../../components/CalendarStrip';
 import CardComponent from '../../components/CardComponent';
@@ -11,26 +9,25 @@ import CardComponent from '../../components/CardComponent';
 const SessionScreen = () => {
 
     const [activeDate, setActiveDate] = useState<Date>(new Date());
+    const [searchStr, setSearchStr] = useState<string>('');
+
+    console.log(searchStr);
 
     return (
         <View style={styles.parent}>
-            <View style={{
-                flex: 1.5,
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
+            <View style={styles.headerContainer}>
 
                 <NameHeader />
             </View>
             <View style={styles.searchBox}>
-                <SearchInput />
+                <SearchInput searchStr={setSearchStr} />
             </View>
 
-            <View style={{ flex: 0.8, marginTop: '6%' }}>
+            <View style={styles.calendarStripContainer}>
                 <CalendarStrip activeDate={activeDate} setActiveDate={setActiveDate} />
             </View>
-            <View style={{ flex: 8, marginTop: 10, }}>
-                <CardComponent />
+            <View style={styles.listContainer}>
+                <CardComponent searchValue={searchStr} activeDate={activeDate} />
             </View>
         </View>
     );
@@ -45,8 +42,15 @@ const styles = StyleSheet.create({
     searchBox: {
         flex: 0.6,
         alignItems: 'center',
-        marginTop: 4
-    }
+        marginTop: 4,
+    },
+    headerContainer: {
+        flex: 1.5,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    calendarStripContainer: { flex: 0.8, marginTop: '6%' },
+    listContainer: { flex: 8, marginTop: 10 },
 });
 
 export default SessionScreen;
