@@ -1,17 +1,25 @@
-import { Image, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, Button, Image, StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native';
 import {
+  lavendar_purple,
+  purple_light,
   search_bar_color, white,
 } from '../../utils/colorHexCodes';
-import { filter_icon, search_icon } from '../../utils/ImageExporter';
-import React, { FC, useRef } from 'react';
+import { clock_icon, filter_icon, filter_selected, search_icon, shadowImg } from '../../utils/ImageExporter';
+import React, { FC, useContext, useRef, useState } from 'react';
+import Modal from 'react-native-modal/dist/modal';
+import { Chip, shadow } from 'react-native-paper';
+import ChipLayout from '../../components/ChipLoyout';
+import { FilterContext } from '../../context/filterConetxt';
 
 type props = {
-  searchStr?: any
 }
 
-const SearchInput: FC<props> = ({ searchStr = () => { } }) => {
+const SearchInput: FC<props> = ({ }) => {
 
   console.log('Search Input Render');
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const { filterCategpry, setFilterStr } = useContext(FilterContext);
   const strTobeSearcher = useRef('');
 
   return (
@@ -23,7 +31,7 @@ const SearchInput: FC<props> = ({ searchStr = () => { } }) => {
           placeholderTextColor={'#FFFFFF66'}
           onChangeText={(t) => { strTobeSearcher.current = t; }}
           underlineColorAndroid="transparent"
-          onSubmitEditing={() => searchStr(strTobeSearcher.current)}
+          onSubmitEditing={() => setFilterStr(strTobeSearcher.current)}
         />
         <Image
           style={styles.searchIcon}
@@ -31,16 +39,29 @@ const SearchInput: FC<props> = ({ searchStr = () => { } }) => {
           source={search_icon} />
       </View>
       <View style={styles.filterContainer}>
-        <Image
-          style={styles.filterIcon}
-          source={filter_icon}
-          resizeMode={'contain'}
-        />
+        <TouchableOpacity
+          style={{
+            height: '100%',
+            aspectRatio: 1,
+            alignItems: 'center',
+          }}
+          onPress={() => {
+            setModalVisible(true)
+          }}>
+          <Image
+            style={styles.filterIcon}
+            source={filterCategpry === '' ? filter_icon : filter_selected}
+            resizeMode={'cover'}
+          />
+        </TouchableOpacity>
       </View>
-
+      <Modal isVisible={modalVisible} onBackdropPress={() => { setModalVisible(false) }}>
+        <ChipLayout closeFunc={() => setModalVisible(false)} />
+      </Modal>
     </View>
   );
 };
+
 
 export default React.memo(SearchInput);
 
@@ -72,7 +93,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   filterIcon: {
-    height: '90%',
+    height: '100%',
+    width: '100%',
+
   },
-  filterContainer: { width: '15%', height: '80%', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' },
+  filterContainer: {
+    width: '15%', height: '80%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
+  },
 });

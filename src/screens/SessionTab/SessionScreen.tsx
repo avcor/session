@@ -4,30 +4,26 @@ import SearchInput from './SearchInput';
 import { myBackground } from '../../utils/colorHexCodes';
 import NameHeader from '../../components/NameHeader';
 import CalendarStrip from '../../components/CalendarStrip';
-import CardComponent from '../../components/CardComponent';
+import CardListComponent from '../../components/CardListComponent';
 
 const SessionScreen = () => {
 
     const [activeDate, setActiveDate] = useState<Date>(new Date());
-    const [searchStr, setSearchStr] = useState<string>('');
-
-    console.log(searchStr);
 
     return (
         <View style={styles.parent}>
             <View style={styles.headerContainer}>
-
                 <NameHeader />
             </View>
             <View style={styles.searchBox}>
-                <SearchInput searchStr={setSearchStr} />
+                <SearchInput />
             </View>
 
             <View style={styles.calendarStripContainer}>
                 <CalendarStrip activeDate={activeDate} setActiveDate={setActiveDate} />
             </View>
             <View style={styles.listContainer}>
-                <CardComponent searchValue={searchStr} activeDate={activeDate} />
+                <CardListComponent activeDate={activeDate} />
             </View>
         </View>
     );

@@ -1,12 +1,8 @@
 import {
-    View,
-    Text,
-    Touchable,
-    TouchableOpacity,
     StyleSheet,
+    View,
 } from 'react-native';
 import React, { FC, useEffect, useState } from 'react';
-import { black, primary_color, white } from '../utils/colorHexCodes';
 import DateCardSelected from './DateCardSelected';
 import DateCardUnselected from './DateCardUnselected';
 import { get7DaysFromToday } from '../utils/utilFunction';
@@ -26,8 +22,8 @@ const CalendarStrip: FC<props> = ({ activeDate, setActiveDate }) => {
     console.log('calendar strip render');
 
     return (
-        <View style={{ flexDirection: 'row', alignSelf: 'flex-start', flex: 1 }}>
-            {dateArr?.map((cardDate, i) => {
+        <View style={styles.parent}>
+            {dateArr?.map((cardDate) => {
                 return (
                     cardDate.getDate() === activeDate.getDate() ?
                         <DateCardSelected key={cardDate.getDate()} cardDate={cardDate} setActiveDate={setActiveDate} /> :
@@ -37,5 +33,9 @@ const CalendarStrip: FC<props> = ({ activeDate, setActiveDate }) => {
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    parent: { flexDirection: 'row', alignSelf: 'flex-start', flex: 1 },
+});
 
 export default React.memo(CalendarStrip);

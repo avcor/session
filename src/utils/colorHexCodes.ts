@@ -9,6 +9,7 @@ const myBackground = '#151718';
 const search_bar_color = '#7676803D';
 const primary_color = '#BCF246';
 const card_background = '#1E1E1E';
+const lavendar_purple = "#834468";
 
 export {
   primary_color,
@@ -21,5 +22,6 @@ export {
   light_grey,
   myBackground,
   search_bar_color,
-  card_background
+  card_background,
+  lavendar_purple
 };

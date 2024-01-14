@@ -1,6 +1,6 @@
 import { ListSessionType } from '../types/myTypes';
 
-export const sessionList: ListSessionType[] = [
+export const sessionListConst: ListSessionType[] = [
 
     {
         'name': 'Yoga',
