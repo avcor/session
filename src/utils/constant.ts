@@ -172,7 +172,6 @@ export const sessionListConst: ListSessionType[] = [
     },
 
 
-
 ];
 
 export const numToDat: { [key: number]: string } = {
