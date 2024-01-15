@@ -1,11 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { ListSessionType } from '../types/myTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { sessionListConst } from '../utils/constant';
+import { ListContext } from '../context/ListContext';
+import { FilterContext } from '../context/filterConetxt';
 
-const useFetchList = (activeDate: Date, searchValue: string, category: string) => {
+const useFetchList = () => {
     const defaultList = useRef(sessionListConst);
     const [list, setList] = useState<ListSessionType[]>([]);
+    const { filterCategpry: category, filterStr: searchValue, activeDate } = useContext(FilterContext);
 
     useEffect(() => {
         setList(filter(defaultList.current, activeDate, searchValue, category));
@@ -21,9 +24,9 @@ const useFetchList = (activeDate: Date, searchValue: string, category: string) =
                         let filteredList = sessionListConst.filter(item => {
                             let iDate = new Date(item.date);
                             return (
-                                today.getUTCFullYear() === iDate.getUTCFullYear() &&
-                                today.getUTCMonth() === iDate.getUTCMonth() &&
-                                today.getUTCDate() === iDate.getUTCDate()
+                                today.getFullYear() === iDate.getFullYear() &&
+                                today.getMonth() === iDate.getMonth() &&
+                                today.getDate() === iDate.getDate()
                             );
 
                         });
@@ -51,9 +54,9 @@ const filter = (
     let t = myList.filter(v => {
         let d = new Date(v.date);
         if (
-            d.getUTCFullYear() === activeDate.getUTCFullYear() &&
-            d.getUTCMonth() === activeDate.getUTCMonth() &&
-            d.getUTCDate() === activeDate.getUTCDate() &&
+            d.getFullYear() === activeDate.getFullYear() &&
+            d.getMonth() === activeDate.getMonth() &&
+            d.getDate() === activeDate.getDate() &&
             v.name.toLowerCase().includes(searchValue.toLowerCase())
             && (v.type.includes(category) || v.category.includes(category))
         ) {

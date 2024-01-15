@@ -4,20 +4,24 @@ import { montserrat_bold, montserrat_regular } from '../utils/FontConstant';
 import { beach_hut, clock_icon } from '../utils/ImageExporter';
 import { white, card_background } from '../utils/colorHexCodes';
 import PrimaryButton from './PrimaryButton';
-import { FC } from 'react';
+import { FC, useCallback, useContext } from 'react';
 import { ListSessionType } from '../types/myTypes';
 import React from 'react';
+import useFetchList from '../customHooks/useFetchList';
+import { ListContext } from '../context/ListContext';
+import { sessionListConst } from '../utils/constant';
 
 type props = {
-    item: ListSessionType,
-    funcBook: (id: string) => void
-    booked?: boolean
+    item?: ListSessionType,
+    funcBook?: (id: string) => void
+    isBooked?: boolean
 }
 
-const SessionCard: FC<props> = ({ item, funcBook, booked = false }) => {
+const SessionCard: FC<props> = ({ item = sessionListConst[9], isBooked = false, funcBook = () => { } }) => {
+    console.log('session card render');
 
     let d = new Date(item.date);
-    console.log('session card render');
+
     return (
         <View style={styles.parentContainer}>
             <View style={styles.flex1}>
@@ -49,7 +53,13 @@ const SessionCard: FC<props> = ({ item, funcBook, booked = false }) => {
                     <View style={styles.bookSession}>
                         <Text style={{ color: white, fontFamily: montserrat_regular }}>{item.category[0].toUpperCase() + item.category.slice(1)}</Text>
                         <View style={styles.buttonContainer}>
-                            <PrimaryButton onClick={() => funcBook(item.date)} text={booked ? 'booked' : 'book'} />
+                            <PrimaryButton onClick={() => {
+                                if (isBooked === false) {
+                                    funcBook(item.date)
+                                }
+                                // fun(item.date)
+                            }
+                            } text={isBooked ? 'booked' : 'book'} />
                         </View>
                     </View>
                 </View>
@@ -58,6 +68,7 @@ const SessionCard: FC<props> = ({ item, funcBook, booked = false }) => {
     );
 };
 
+export default React.memo(SessionCard);
 
 const styles = StyleSheet.create({
     parentContainer: {
@@ -94,4 +105,3 @@ const styles = StyleSheet.create({
     padding10: { padding: 10 },
 });
 
-export default React.memo(SessionCard);

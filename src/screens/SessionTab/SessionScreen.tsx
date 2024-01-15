@@ -8,8 +8,6 @@ import CardListComponent from '../../components/CardListComponent';
 
 const SessionScreen = () => {
 
-    const [activeDate, setActiveDate] = useState<Date>(new Date());
-
     return (
         <View style={styles.parent}>
             <View style={styles.headerContainer}>
@@ -20,10 +18,10 @@ const SessionScreen = () => {
             </View>
 
             <View style={styles.calendarStripContainer}>
-                <CalendarStrip activeDate={activeDate} setActiveDate={setActiveDate} />
+                <CalendarStrip />
             </View>
             <View style={styles.listContainer}>
-                <CardListComponent activeDate={activeDate} />
+                <CardListComponent />
             </View>
         </View>
     );

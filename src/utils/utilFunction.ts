@@ -1,3 +1,5 @@
+import { ListSessionType } from "../types/myTypes";
+
 export const get7DaysFromToday = () => {
     let todayDate = new Date();
     let arr1: Date[] = [];
@@ -8,3 +10,28 @@ export const get7DaysFromToday = () => {
     }
     return arr1
 }
+
+export const filter = (
+    myList: ListSessionType[],
+    activeDate: Date,
+    searchValue: string,
+    category: string,
+) => {
+    let t = myList.filter(v => {
+        let d = new Date(v.date);
+        if (
+            d.getFullYear() === activeDate.getFullYear() &&
+            d.getMonth() === activeDate.getMonth() &&
+            d.getDate() === activeDate.getDate() &&
+            v.name.toLowerCase().includes(searchValue.toLowerCase())
+            && (v.type.includes(category) || v.category.includes(category))
+        ) {
+            console.log(v.category)
+            return true;
+        } else {
+            return false;
+        }
+    });
+    console.log(t)
+    return t
+};

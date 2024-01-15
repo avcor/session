@@ -1,15 +1,21 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { FC } from 'react';
 import { black, purple_light, text_grey, white } from '../utils/colorHexCodes';
 import { montserrat_bold, montserrat_regular, roboto_bold, roboto_light } from '../utils/FontConstant';
 
-const NameHeader = () => {
+type props = {
+    smHead?: string;
+    lgHead?: string;
+}
+
+const NameHeader: FC<props> = ({ smHead = 'Find your', lgHead = 'Health Session' }) => {
+
     console.log('Name Header Render')
     return (
         <>
             <View style={styles.userDetailsContainer}>
-                <Text style={styles.normal_text}>Find your</Text>
-                <Text style={styles.bold_text}>Health Session</Text>
+                <Text style={styles.normal_text}>{smHead}</Text>
+                <Text style={styles.bold_text}>{lgHead}</Text>
             </View>
         </>
     )

@@ -2,17 +2,15 @@ import {
     StyleSheet,
     View,
 } from 'react-native';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import DateCardSelected from './DateCardSelected';
 import DateCardUnselected from './DateCardUnselected';
 import { get7DaysFromToday } from '../utils/utilFunction';
+import { FilterContext } from '../context/filterConetxt';
 
-type props = {
-    activeDate: Date;
-    setActiveDate: any;
-};
+const CalendarStrip: FC = ({ }) => {
 
-const CalendarStrip: FC<props> = ({ activeDate, setActiveDate }) => {
+    const { activeDate, setActiveDate } = useContext(FilterContext);
     const [dateArr, setDateArr] = useState<Date[]>([]);
 
     useEffect(() => {
