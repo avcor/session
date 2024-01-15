@@ -1,9 +1,6 @@
 import { FlatList, StyleSheet } from 'react-native';
-import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
+import React, { FC, useCallback, useContext, } from 'react';
 import SessionCard from './SessionCard';
-import useFetchList from '../customHooks/useFetchList';
-import { FilterContext } from '../context/filterConetxt';
-import { ActivityIndicator, } from 'react-native-paper';
 import { ListContext } from '../context/ListContext';
 
 

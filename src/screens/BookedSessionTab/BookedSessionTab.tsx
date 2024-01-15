@@ -7,6 +7,7 @@ import { myBackground } from "../../utils/colorHexCodes"
 import SearchInput from "../SessionTab/SearchInput"
 import { ListContext } from "../../context/ListContext"
 import SessionCard from "../../components/SessionCard"
+import { sessionListConst } from "../../utils/constant"
 
 const BookedSessionScreen = () => {
     const { bookedList } = useContext(ListContext);
@@ -22,7 +23,6 @@ const BookedSessionScreen = () => {
             </View>
             <View style={{ flex: 10, marginTop: '10%' }}>
                 <FlatList
-                    extraData={bookedList.reverse()}
                     keyExtractor={(item) => item.date + item.name}
                     data={bookedList}
                     contentContainerStyle={styles.gapStyle}

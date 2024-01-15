@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { View, Image, Text, StyleSheet, Dimensions } from 'react-native';
 import { montserrat_bold, montserrat_regular } from '../utils/FontConstant';
-import { beach_hut, clock_icon } from '../utils/ImageExporter';
+import { beach_hut, card_back, clock_icon, double_tick } from '../utils/ImageExporter';
 import { white, card_background } from '../utils/colorHexCodes';
 import PrimaryButton from './PrimaryButton';
 import { FC, useCallback, useContext } from 'react';
@@ -20,12 +20,13 @@ type props = {
 }
 
 const SessionCard: FC<props> = ({ item = sessionListConst[9], isBooked = false, funcBook = () => { }, showDate = false }) => {
-    console.log('session card render');
+    !showDate ? console.log('session card render') : console.log('booked section card')
 
     let d = new Date(item.date);
 
     return (
         <View style={styles.parentContainer}>
+            <Image style={{ position: 'absolute', height: '100%', width: '100%' }} source={card_back} blurRadius={10}></Image>
             <View style={styles.flex1}>
                 <View style={styles.padding10}>
                     <Image
@@ -56,13 +57,21 @@ const SessionCard: FC<props> = ({ item = sessionListConst[9], isBooked = false, 
                     <View style={styles.bookSession}>
                         <Text style={{ color: white, fontFamily: montserrat_regular }}>{item.category[0].toUpperCase() + item.category.slice(1)}</Text>
                         <View style={styles.buttonContainer}>
-                            <PrimaryButton onClick={() => {
-                                if (isBooked === false) {
-                                    funcBook(item.date)
-                                }
-                                // fun(item.date)
+                            {
+                                isBooked ? <Image style={{ height: '90%', aspectRatio: 1, alignSelf: 'flex-end' }}
+                                    source={double_tick} resizeMode='contain'>
+
+                                </Image> :
+                                    <PrimaryButton onClick={() => {
+                                        if (isBooked === false) {
+                                            funcBook(item.date)
+                                        }
+                                        // fun(item.date)
+                                    }
+                                    } text={isBooked ? 'booked' : 'book'} />
                             }
-                            } text={isBooked ? 'booked' : 'book'} />
+
+
                         </View>
                     </View>
                 </View>

@@ -6,6 +6,8 @@ const calendar_icon = require('../assets/images/calendar_icon.png');
 const clock_icon = require('../assets/images/clock_icon.png');
 const filter_selected = require('../assets/images/filter_selected.png');
 const shadowImg = require('../assets/images/shadow.png');
+const card_back = require('../assets/images/card_back.png');
+const double_tick = require('../assets/images/double_tick.png');
 
-export { beach_hut, profile_photo, search_icon, filter_icon, calendar_icon, clock_icon, filter_selected, shadowImg };
+export { beach_hut, profile_photo, search_icon, filter_icon, calendar_icon, clock_icon, filter_selected, shadowImg, card_back, double_tick };
 
