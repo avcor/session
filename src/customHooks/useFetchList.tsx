@@ -2,7 +2,6 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { ListSessionType } from '../types/myTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { sessionListConst } from '../utils/constant';
-import { ListContext } from '../context/ListContext';
 import { FilterContext } from '../context/filterConetxt';
 
 const useFetchList = () => {
@@ -60,13 +59,13 @@ const filter = (
             v.name.toLowerCase().includes(searchValue.toLowerCase())
             && (v.type.includes(category) || v.category.includes(category))
         ) {
-            console.log(v.category)
+            console.log(v.category);
             return true;
         } else {
             return false;
         }
     });
-    return t
+    return t;
 };
 
 export default useFetchList;

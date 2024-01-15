@@ -4,11 +4,9 @@ import { montserrat_bold, montserrat_regular } from '../utils/FontConstant';
 import { beach_hut, clock_icon } from '../utils/ImageExporter';
 import { white, card_background } from '../utils/colorHexCodes';
 import PrimaryButton from './PrimaryButton';
-import { FC, useCallback, useContext } from 'react';
+import { FC } from 'react';
 import { ListSessionType } from '../types/myTypes';
 import React from 'react';
-import useFetchList from '../customHooks/useFetchList';
-import { ListContext } from '../context/ListContext';
 import { sessionListConst } from '../utils/constant';
 import DateTimeComp from './DateTimeComp';
 
@@ -58,7 +56,7 @@ const SessionCard: FC<props> = ({ item = sessionListConst[9], isBooked = false, 
                         <View style={styles.buttonContainer}>
                             <PrimaryButton onClick={() => {
                                 if (isBooked === false) {
-                                    funcBook(item.date)
+                                    funcBook(item.date);
                                 }
                                 // fun(item.date)
                             }

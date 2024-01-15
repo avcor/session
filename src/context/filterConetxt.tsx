@@ -1,5 +1,6 @@
 import { FC, createContext, useEffect, useState } from 'react';
-
+import React
+    from 'react';
 type myConetxtData = {
     filterStr: string;
     setFilterStr: any;
@@ -15,7 +16,7 @@ export const FilterContext = createContext<myConetxtData>({
     filterCategpry: '',
     setFilterCategoory: () => { },
     activeDate: new Date(),
-    setActiveDate: () => { }
+    setActiveDate: () => { },
 });
 
 export const FilterProvider: FC<{ children: React.ReactNode }> = ({
@@ -23,7 +24,7 @@ export const FilterProvider: FC<{ children: React.ReactNode }> = ({
 }) => {
     const [filterStr, setFilterStr] = useState('');
     const [filterCategpry, setFilterCategoory] = useState('');
-    const [activeDate, setActiveDate] = useState(new Date())
+    const [activeDate, setActiveDate] = useState(new Date());
 
     useEffect(() => {
     }, [filterCategpry]);

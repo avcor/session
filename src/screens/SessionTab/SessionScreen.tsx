@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import SearchInput from './SearchInput';
 import { myBackground } from '../../utils/colorHexCodes';
 import NameHeader from '../../components/NameHeader';

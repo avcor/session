@@ -1,13 +1,10 @@
-import { useContext, useEffect } from "react"
-import { View, StyleSheet, FlatList } from "react-native"
-import CalendarStrip from "../../components/CalendarStrip"
-import CardListComponent from "../../components/CardListComponent"
-import NameHeader from "../../components/NameHeader"
-import { myBackground } from "../../utils/colorHexCodes"
-import SearchInput from "../SessionTab/SearchInput"
-import { ListContext } from "../../context/ListContext"
-import SessionCard from "../../components/SessionCard"
-
+import { useContext } from 'react';
+import { View, StyleSheet, FlatList } from 'react-native';
+import NameHeader from '../../components/NameHeader';
+import { myBackground } from '../../utils/colorHexCodes';
+import { ListContext } from '../../context/ListContext';
+import SessionCard from '../../components/SessionCard';
+import React from 'react';
 const BookedSessionScreen = () => {
     const { bookedList } = useContext(ListContext);
 
@@ -16,7 +13,7 @@ const BookedSessionScreen = () => {
             <View style={styles.headerContainer}>
                 <NameHeader lgHead="Booked Workouts" />
             </View>
-            <View style={{ flex: 10, marginTop: '10%' }}>
+            <View style={styles.flatListContainer}>
                 <FlatList
                     keyExtractor={(item) => item.date + item.name}
                     data={bookedList}
@@ -31,8 +28,9 @@ const BookedSessionScreen = () => {
             </View>
 
         </View>
-    )
-}
+    );
+};
+
 
 const styles = StyleSheet.create({
     parent: {
@@ -48,7 +46,8 @@ const styles = StyleSheet.create({
     gapStyle: {
         gap: 30,
     },
+    flatListContainer: { flex: 10, marginTop: '10%' },
 });
 
 
-export default BookedSessionScreen
+export default BookedSessionScreen;

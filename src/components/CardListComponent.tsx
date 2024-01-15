@@ -1,15 +1,12 @@
 import { FlatList, StyleSheet } from 'react-native';
-import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
+import React, { FC, useCallback, useContext } from 'react';
 import SessionCard from './SessionCard';
-import useFetchList from '../customHooks/useFetchList';
-import { FilterContext } from '../context/filterConetxt';
-import { ActivityIndicator, } from 'react-native-paper';
 import { ListContext } from '../context/ListContext';
 
 
 const CardListComponent: FC = ({ }) => {
     console.log('list render');
-    const { list, setList, markBookInList } = useContext(ListContext)
+    const { list, setList, markBookInList } = useContext(ListContext);
 
     const fun = useCallback((selectedDate: string) => {
         setList((prev) => {
@@ -17,14 +14,14 @@ const CardListComponent: FC = ({ }) => {
             prev.find((val, i) => {
                 if (val.date === selectedDate) {
                     ind = i;
-                    return true
+                    return true;
                 }
-            })
-            prev[ind].isBooked = true
-            markBookInList(selectedDate)
+            });
+            prev[ind].isBooked = true;
+            markBookInList(selectedDate);
             return [...prev];
-        })
-    }, [])
+        });
+    }, []);
 
     return (
         <>
