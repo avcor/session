@@ -1,9 +1,9 @@
 import { FC, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Chip } from 'react-native-paper';
-import { Image } from 'react-native-reanimated/lib/typescript/Animated';
-import { FilterContext, FilterProvider } from '../context/filterConetxt';
-import { black, lavendar_purple, primary_color, purple_main, white } from '../utils/colorHexCodes';
+import { FilterContext } from '../context/filterConetxt';
+import { black, lavendar_purple, primary_color, white } from '../utils/colorHexCodes';
+import React from 'react';
 
 type props = {
     closeFunc?: any;
@@ -14,18 +14,12 @@ const ChipLayout: FC<props> = ({ closeFunc }) => {
 
     return (
         <View
-            style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'white',
-                flexDirection: 'column',
-                paddingVertical: 20,
-            }}>
-            <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
+            style={styles.Container}>
+            <View style={styles.typeContainer}>
 
                 {workoutTpe.map(v => {
 
-                    let applySelect = v === filterCategpry
+                    let applySelect = v === filterCategpry;
                     return (
                         <Chip
                             key={v}
@@ -36,12 +30,12 @@ const ChipLayout: FC<props> = ({ closeFunc }) => {
                                 closeFunc();
                             }}>{v}
                         </Chip>
-                    )
+                    );
                 })}
             </View>
-            <View style={{ flexWrap: 'wrap', flexDirection: 'row', marginTop: 5 }}>
+            <View style={styles.category}>
                 {categoryWorkout.map(v => {
-                    let applySelect = v === filterCategpry
+                    let applySelect = v === filterCategpry;
                     return (
                         <Chip
                             key={v}
@@ -56,9 +50,9 @@ const ChipLayout: FC<props> = ({ closeFunc }) => {
                     );
                 })}
             </View>
-            <Button style={{ backgroundColor: primary_color, marginTop: 20 }} onPress={() => {
-                setFilterCategoory('')
-                closeFunc()
+            <Button style={styles.buttonClear} onPress={() => {
+                setFilterCategoory('');
+                closeFunc();
             }}> Clear </Button>
         </View >
     );
@@ -69,15 +63,25 @@ const styles = StyleSheet.create({
         backgroundColor: lavendar_purple,
         margin: 5,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     unSelected: {
         color: black,
         margin: 5,
         alignItems: 'center',
-        justifyContent: 'center'
-    }
-})
+        justifyContent: 'center',
+    },
+    Container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        flexDirection: 'column',
+        paddingVertical: 20,
+    },
+    typeContainer: { flexWrap: 'wrap', flexDirection: 'row' },
+    category: { flexWrap: 'wrap', flexDirection: 'row', marginTop: 5 },
+    buttonClear: { backgroundColor: primary_color, marginTop: 20 },
+});
 
 const workoutTpe = ['personal', 'group', 'webinar'];
 

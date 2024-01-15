@@ -1,13 +1,10 @@
-import { Alert, Button, Image, StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import {
-  lavendar_purple,
-  purple_light,
   search_bar_color, white,
 } from '../../utils/colorHexCodes';
-import { clock_icon, filter_icon, filter_selected, search_icon, shadowImg } from '../../utils/ImageExporter';
+import { filter_icon, filter_selected, search_icon } from '../../utils/ImageExporter';
 import React, { FC, useContext, useRef, useState } from 'react';
 import Modal from 'react-native-modal/dist/modal';
-import { Chip, shadow } from 'react-native-paper';
 import ChipLayout from '../../components/ChipLoyout';
 import { FilterContext } from '../../context/filterConetxt';
 
@@ -40,13 +37,9 @@ const SearchInput: FC<props> = ({ }) => {
       </View>
       <View style={styles.filterContainer}>
         <TouchableOpacity
-          style={{
-            height: '100%',
-            aspectRatio: 1,
-            alignItems: 'center',
-          }}
+          style={styles.filter_touch}
           onPress={() => {
-            setModalVisible(true)
+            setModalVisible(true);
           }}>
           <Image
             style={styles.filterIcon}
@@ -55,7 +48,7 @@ const SearchInput: FC<props> = ({ }) => {
           />
         </TouchableOpacity>
       </View>
-      <Modal isVisible={modalVisible} onBackdropPress={() => { setModalVisible(false) }}>
+      <Modal isVisible={modalVisible} onBackdropPress={() => { setModalVisible(false); }}>
         <ChipLayout closeFunc={() => setModalVisible(false)} />
       </Modal>
     </View>
@@ -99,5 +92,10 @@ const styles = StyleSheet.create({
   },
   filterContainer: {
     width: '15%', height: '80%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
+  },
+  filter_touch: {
+    height: '100%',
+    aspectRatio: 1,
+    alignItems: 'center',
   },
 });

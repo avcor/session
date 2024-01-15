@@ -4,11 +4,9 @@ import { montserrat_bold, montserrat_regular } from '../utils/FontConstant';
 import { beach_hut, card_back, clock_icon, double_tick } from '../utils/ImageExporter';
 import { white, card_background } from '../utils/colorHexCodes';
 import PrimaryButton from './PrimaryButton';
-import { FC, useCallback, useContext } from 'react';
+import { FC } from 'react';
 import { ListSessionType } from '../types/myTypes';
 import React from 'react';
-import useFetchList from '../customHooks/useFetchList';
-import { ListContext } from '../context/ListContext';
 import { sessionListConst } from '../utils/constant';
 import DateTimeComp from './DateTimeComp';
 
@@ -20,13 +18,13 @@ type props = {
 }
 
 const SessionCard: FC<props> = ({ item = sessionListConst[9], isBooked = false, funcBook = () => { }, showDate = false }) => {
-    !showDate ? console.log('session card render') : console.log('booked section card')
+    !showDate ? console.log('session card render') : console.log('booked section card');
 
     let d = new Date(item.date);
 
     return (
         <View style={styles.parentContainer}>
-            <Image style={{ position: 'absolute', height: '100%', width: '100%' }} source={card_back} blurRadius={10}></Image>
+            <Image style={styles.backImg} source={card_back} blurRadius={10} />
             <View style={styles.flex1}>
                 <View style={styles.padding10}>
                     <Image
@@ -58,13 +56,11 @@ const SessionCard: FC<props> = ({ item = sessionListConst[9], isBooked = false, 
                         <Text style={{ color: white, fontFamily: montserrat_regular }}>{item.category[0].toUpperCase() + item.category.slice(1)}</Text>
                         <View style={styles.buttonContainer}>
                             {
-                                isBooked ? <Image style={{ height: '90%', aspectRatio: 1, alignSelf: 'flex-end' }}
-                                    source={double_tick} resizeMode='contain'>
-
-                                </Image> :
+                                isBooked ? <Image style={styles.doubleTick}
+                                    source={double_tick} resizeMode="contain" /> :
                                     <PrimaryButton onClick={() => {
                                         if (isBooked === false) {
-                                            funcBook(item.date)
+                                            funcBook(item.date);
                                         }
                                         // fun(item.date)
                                     }
@@ -115,5 +111,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     padding10: { padding: 10 },
+    backImg: { position: 'absolute', height: '100%', width: '100%' },
+    doubleTick: { height: '90%', aspectRatio: 1, alignSelf: 'flex-end' },
 });
 
