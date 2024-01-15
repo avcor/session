@@ -19,7 +19,7 @@ const BookedSessionScreen = () => {
     return (
         <View style={styles.parent}>
             <View style={styles.headerContainer}>
-                <NameHeader lgHead="Booked Workouts" />
+                <NameHeader smHead='All your' lgHead="Booked Workouts" />
             </View>
             <View style={{ flex: 10, marginTop: '10%' }}>
                 <FlatList

@@ -60,7 +60,7 @@ const filter = (
             v.name.toLowerCase().includes(searchValue.toLowerCase())
             && (v.type.includes(category) || v.category.includes(category))
         ) {
-            console.log(v.category)
+            // console.log(v.category)
             return true;
         } else {
             return false;
