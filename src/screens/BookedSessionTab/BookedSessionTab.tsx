@@ -11,6 +11,10 @@ import SessionCard from "../../components/SessionCard"
 const BookedSessionScreen = () => {
     const { bookedList } = useContext(ListContext);
 
+    useEffect(() => {
+        // console.log(bookedList)
+    }, [bookedList])
+
     return (
         <View style={styles.parent}>
             <View style={styles.headerContainer}>
@@ -18,6 +22,7 @@ const BookedSessionScreen = () => {
             </View>
             <View style={{ flex: 10, marginTop: '10%' }}>
                 <FlatList
+                    extraData={bookedList.reverse()}
                     keyExtractor={(item) => item.date + item.name}
                     data={bookedList}
                     contentContainerStyle={styles.gapStyle}

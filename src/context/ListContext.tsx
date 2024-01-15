@@ -75,6 +75,7 @@ export const ListProvider: FC<{ children: React.ReactNode }> = ({
         defaultList.current = defaultList.current.map((v) => {
             if (v.date === selectedDate) {
                 v.isBooked = true;
+                bookedTmp.push({ ...v })
                 return { ...v }
             }
             if (v.isBooked === true) {
@@ -83,7 +84,9 @@ export const ListProvider: FC<{ children: React.ReactNode }> = ({
             return v
         })
 
-        setBookedList(bookedTmp)
+        setBookedList((prev) => {
+            return ([...bookedTmp])
+        })
 
     }, [])
 
