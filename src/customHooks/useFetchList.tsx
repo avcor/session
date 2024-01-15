@@ -66,7 +66,6 @@ const filter = (
             return false;
         }
     });
-    console.log(t)
     return t
 };
 

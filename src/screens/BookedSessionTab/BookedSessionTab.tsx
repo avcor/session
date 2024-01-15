@@ -1,22 +1,33 @@
-import { useEffect } from "react"
-import { View, StyleSheet } from "react-native"
+import { useContext, useEffect } from "react"
+import { View, StyleSheet, FlatList } from "react-native"
 import CalendarStrip from "../../components/CalendarStrip"
 import CardListComponent from "../../components/CardListComponent"
 import NameHeader from "../../components/NameHeader"
 import { myBackground } from "../../utils/colorHexCodes"
 import SearchInput from "../SessionTab/SearchInput"
+import { ListContext } from "../../context/ListContext"
+import SessionCard from "../../components/SessionCard"
 
 const BookedSessionScreen = () => {
-    useEffect(() => {
-        console.log('booked Session')
-    })
+    const { bookedList } = useContext(ListContext);
+
     return (
         <View style={styles.parent}>
             <View style={styles.headerContainer}>
                 <NameHeader lgHead="Booked Workouts" />
             </View>
-            <View style={{ flex: 10 }}>
-
+            <View style={{ flex: 10, marginTop: '10%' }}>
+                <FlatList
+                    keyExtractor={(item) => item.date + item.name}
+                    data={bookedList}
+                    contentContainerStyle={styles.gapStyle}
+                    renderItem={({ item }) => {
+                        return <SessionCard
+                            item={item}
+                            isBooked={item.isBooked}
+                            showDate={true} />;
+                    }}
+                />
             </View>
 
         </View>
@@ -34,6 +45,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    gapStyle: {
+        gap: 30,
+    },
 });
+
 
 export default BookedSessionScreen

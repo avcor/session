@@ -26,7 +26,6 @@ export const FilterProvider: FC<{ children: React.ReactNode }> = ({
     const [activeDate, setActiveDate] = useState(new Date())
 
     useEffect(() => {
-        console.log('categoty ' + filterCategpry);
     }, [filterCategpry]);
     return (
         <FilterContext.Provider

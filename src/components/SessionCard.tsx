@@ -10,14 +10,16 @@ import React from 'react';
 import useFetchList from '../customHooks/useFetchList';
 import { ListContext } from '../context/ListContext';
 import { sessionListConst } from '../utils/constant';
+import DateTimeComp from './DateTimeComp';
 
 type props = {
     item?: ListSessionType,
     funcBook?: (id: string) => void
-    isBooked?: boolean
+    isBooked?: boolean,
+    showDate?: boolean
 }
 
-const SessionCard: FC<props> = ({ item = sessionListConst[9], isBooked = false, funcBook = () => { } }) => {
+const SessionCard: FC<props> = ({ item = sessionListConst[9], isBooked = false, funcBook = () => { }, showDate = false }) => {
     console.log('session card render');
 
     let d = new Date(item.date);
@@ -41,13 +43,14 @@ const SessionCard: FC<props> = ({ item = sessionListConst[9], isBooked = false, 
                         <Text style={styles.textHeadLg}>{item.type[0].toUpperCase() + item.type.slice(1)}</Text>
 
                         <View style={styles.time}>
-                            <View style={styles.imageContainer}>
+                            {showDate === false ? <View style={styles.imageContainer}>
                                 <Image
                                     style={styles.clockImg}
                                     resizeMode="cover"
                                     source={clock_icon} />
                                 <Text style={styles.timeText}>{moment(d).format('hh:mm A')}</Text>
-                            </View>
+                            </View> : <DateTimeComp d={d} />
+                            }
                         </View>
                     </View>
                     <View style={styles.bookSession}>

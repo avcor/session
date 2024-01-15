@@ -59,6 +59,10 @@ export const ListProvider: FC<{ children: React.ReactNode }> = ({
                 });
         };
         fetchDate();
+
+        return () => {
+            // make async call over here 
+        }
     }, [])
 
     useEffect(() => {
